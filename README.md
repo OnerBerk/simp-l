@@ -2,6 +2,6 @@
 
 ## Start Project
 
-- nvm install
-- npm install
-- npm run local:watch
+- `` nvm install``
+- `` npm install``
+- `` npm run local:watch ``
