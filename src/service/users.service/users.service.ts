@@ -1,77 +1,22 @@
 import { NotFoundException } from '../../exceptions/exceptions';
 import { RequestHandler } from 'express';
 import { User } from '../../models/users';
+import { Identifier } from 'sequelize';
 
 export class UsersService {
-    createUser: RequestHandler = async (req, res, next) => {
-        const user = await User.create({ ...req.body });
-        return res
-            .status(200)
-            .json({ message: 'users created successfully', data: user });
-
-    };
-    findAll: RequestHandler = async (req, res, next) => {
+    findAll = async () => {
         const allUsers: User[] = await User.findAll();
-        return res
-            .status(200)
-            .json({ message: 'users fetched successfully', data: allUsers });
-
+        return allUsers;
     };
-    findUserById: RequestHandler = async (req, res, next) => {
-        const id = req.params.id;
+    findUserById = async (id: Identifier) => {
         const user: User | null = await User.findByPk(id);
-        try {
-            if (user === null) {
-                return res
-                    .status(404)
-                    .json({ error: 'user not found' });
-                //  throw new NotFoundException('Ustilisateur introuvable');
-            } else {
-                return res
-                    .status(200)
-                    .json({ message: 'user found', data: user });
-            }
-        } catch (e) {
-            console.log('error', e);
-        }
+        return user;
     };
-    updateUser: RequestHandler = async (req, res, next) => {
-        const id = req.params.id;
-        const user: User | null = await User.findByPk(id);
-        try {
-            if (user === null) {
-                return res
-                    .status(404)
-                    .json({ error: 'user not found' });
-                //  throw new NotFoundException('Ustilisateur introuvable');
-            } else {
-                await User.update({ ...req.body }, { where: { id } });
-                return res
-                    .status(200)
-                    .json({ message: 'user updated successfully', data: user });
-            }
-        } catch (e) {
-            console.log('error', e);
-        }
+    createUser = async (user: User) => {
+        const newUser = { ...user };
+        return await User.create(newUser);
     };
-    deleteUser: RequestHandler = async (req, res, next) => {
-        const id = req.params.id;
-        const user: User | null = await User.findByPk(id);
-        try {
-            if (user === null) {
-                return res
-                    .status(404)
-                    .json({ error: 'user not found' });
-                //  throw new NotFoundException('Ustilisateur introuvable');
-            } else {
-                await User.destroy({ where: { id } });
-                return res
-                    .status(200)
-                    .json({ message: 'users deleted successfully', data: user });
-            }
-        } catch (e) {
-            console.log('error', e);
-        }
+    updateUser = async  (id: Identifier, user: User) => {
+        const findUser: User | null = await User.findByPk(id);
     };
-
 }
