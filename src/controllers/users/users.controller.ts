@@ -1,9 +1,13 @@
 import { UsersService } from '../../service/users.service/users.service';
 import { Request, RequestHandler, Response } from 'express';
 import { User } from '../../models/users';
+import { Controller, Get, Route } from 'tsoa';
 
 const userService = new UsersService();
-export class UsersController {
+
+@Route('users')
+export class UsersController extends Controller {
+    @Get("/")
     findAll: RequestHandler = async (req: Request, res: Response) => {
         const users: User[] = await userService.findAll();
         return res

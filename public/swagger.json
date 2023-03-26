@@ -1,0 +1,29 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "simp-l",
+		"version": "1.0.0",
+		"description": "Simple way to find happiness",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "ÖnAir"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
